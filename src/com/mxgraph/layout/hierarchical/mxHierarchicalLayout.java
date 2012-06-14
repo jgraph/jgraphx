@@ -77,7 +77,7 @@ JGraphLayout.Stoppable*/
 	protected double parallelEdgeSpacing = 10.0;
 
 	/**
-	 * The position of the root node(s) relative to the laid out graph in.
+	 * The position of the root node(s) relative to the laid out graph in. 
 	 * Default is <code>SwingConstants.NORTH</code>, i.e. top-down.
 	 */
 	protected int orientation = SwingConstants.NORTH;
@@ -130,7 +130,7 @@ JGraphLayout.Stoppable*/
 	protected boolean promoteEdges = true;
 
 	/**
-	 * Whether or not to navigate edges whose terminal vertices
+	 * Whether or not to navigate edges whose terminal vertices 
 	 * have different parents but are in the same ancestry chain
 	 */
 	protected boolean traverseAncestors = true;
@@ -151,7 +151,7 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Constructs a hierarchical layout
 	 * @param graph the graph to lay out
-	 *
+	 * 
 	 */
 	public mxHierarchicalLayout(mxGraph graph)
 	{
@@ -162,7 +162,7 @@ JGraphLayout.Stoppable*/
 	 * Constructs a hierarchical layout
 	 * @param graph the graph to lay out
 	 * @param orientation <code>SwingConstants.NORTH, SwingConstants.EAST, SwingConstants.SOUTH</code> or <code> SwingConstants.WEST</code>
-	 *
+	 * 
 	 */
 	public mxHierarchicalLayout(mxGraph graph, int orientation)
 	{
@@ -180,7 +180,7 @@ JGraphLayout.Stoppable*/
 
 	/**
 	 * Executes the layout for the children of the specified parent.
-	 *
+	 * 
 	 * @param parent Parent cell that contains the children to be laid out.
 	 */
 	public void execute(Object parent)
@@ -190,7 +190,7 @@ JGraphLayout.Stoppable*/
 
 	/**
 	 * Executes the layout for the children of the specified parent.
-	 *
+	 * 
 	 * @param parent Parent cell that contains the children to be laid out.
 	 * @param roots the starting roots of the layout
 	 */
@@ -256,7 +256,7 @@ JGraphLayout.Stoppable*/
 	 * maximum difference between incoming and outgoing edges are returned.
 	 * This takes into account edges that are being promoted to the given
 	 * root due to invisible children or collapsed cells.
-	 *
+	 * 
 	 * @param parent Cell whose children should be checked.
 	 * @return List of tree roots in parent.
 	 */
@@ -692,7 +692,7 @@ JGraphLayout.Stoppable*/
 	}
 
 	/**
-	 *
+	 * 
 	 * @param disableEdgeStyle
 	 */
 	public void setDisableEdgeStyle(boolean disableEdgeStyle)
