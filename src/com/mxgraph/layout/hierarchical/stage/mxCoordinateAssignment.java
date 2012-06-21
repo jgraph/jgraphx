@@ -197,7 +197,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Creates a coordinate assignment.
-	 * 
+	 *
 	 * @param intraCellSpacing
 	 *            the minimum buffer between cells on the same rank
 	 * @param interRankCellSpacing
@@ -244,10 +244,10 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 			}
 			System.out.println();
 		}
-		
+
 		System.out.println("====================================");
 	}
-	
+
 	/**
 	 * A basic horizontal coordinate assignment algorithm
 	 */
@@ -327,7 +327,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Performs one median positioning sweep in both directions
-	 * 
+	 *
 	 * @param model
 	 *            an internal model of the hierarchical layout
 	 */
@@ -509,7 +509,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Performs one median positioning sweep in one direction
-	 * 
+	 *
 	 * @param i
 	 *            the iteration of the whole process
 	 * @param model
@@ -538,7 +538,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Performs median minimisation over one rank.
-	 * 
+	 *
 	 * @param rankValue
 	 *            the layer number of this rank
 	 * @param model
@@ -715,7 +715,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	/**
 	 * Calculates the priority the specified cell has based on the type of its
 	 * cell and the cells it is connected to on the next layer
-	 * 
+	 *
 	 * @param currentCell
 	 *            the cell whose weight is to be calculated
 	 * @param collection
@@ -753,7 +753,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	/**
 	 * Calculates the median position of the connected cell on the specified
 	 * rank
-	 * 
+	 *
 	 * @param connectedCells
 	 *            the cells the candidate connects to on this level
 	 * @param rankValue
@@ -796,7 +796,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	 * Sets up the layout in an initial positioning. The ranks are all centered
 	 * as much as possible along the middle vertex in each rank. The other cells
 	 * are then placed as close as possible on either side.
-	 * 
+	 *
 	 * @param facade
 	 *            the facade describing the input graph
 	 * @param model
@@ -829,7 +829,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	 * rank are moved to the left and the rest of the rank inserted as close
 	 * together as their size and buffering permits. This method works on just
 	 * the specified rank.
-	 * 
+	 *
 	 * @param rankValue
 	 *            the current rank being processed
 	 * @param graph
@@ -913,7 +913,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	/**
 	 * Calculates the width rank in the hierarchy. Also set the y value of each
 	 * rank whilst performing the calculation
-	 * 
+	 *
 	 * @param graph
 	 *            the facade describing the input graph
 	 * @param model
@@ -1040,7 +1040,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Straightens out chains of virtual nodes where possible
-	 * 
+	 *
 	 * @param model
 	 *            an internal model of the hierarchical layout
 	 */
@@ -1048,9 +1048,9 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	{
 		// Work down and up each edge with at least 2 control points
 		// trying to straighten each one out. If the same number of
-		// straight segments are formed in both directions, the 
+		// straight segments are formed in both directions, the
 		// preferred direction used is the one where the final
-		// control points have the least offset from the connectable 
+		// control points have the least offset from the connectable
 		// region of the terminating vertices
 		Map<Object, mxGraphHierarchyEdge> edges = model.getEdgeMapper();
 
@@ -1178,7 +1178,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	}
 
 	/**
-	 * Determines whether or not a node may be moved to the specified x 
+	 * Determines whether or not a node may be moved to the specified x
 	 * position on the specified rank
 	 * @param model the layout model
 	 * @param cell the cell being analysed
@@ -1263,7 +1263,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	/**
 	 * Sets the cell locations in the facade to those stored after this layout
 	 * processing step has completed.
-	 * 
+	 *
 	 * @param graph
 	 *            the facade describing the input graph
 	 * @param model
@@ -1281,29 +1281,29 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 		}
 
 		Set<Object> parentsChanged = null;
-		
+
 		if (layout.isResizeParent())
 		{
 			parentsChanged = new HashSet<Object>();
 		}
-		
+
 		Map<Object, mxGraphHierarchyEdge> edges = model.getEdgeMapper();
 		Map<Object, mxGraphHierarchyNode> vertices = model.getVertexMapper();
 
-		// Process vertices all first, since they define the lower and 
+		// Process vertices all first, since they define the lower and
 		// limits of each rank. Between these limits lie the channels
 		// where the edges can be routed across the graph
 
 		for (mxGraphHierarchyNode cell : vertices.values())
 		{
 			setVertexLocation(cell);
-			
+
 			if (layout.isResizeParent())
 			{
 				parentsChanged.add(graph.getModel().getParent(cell.cell));
 			}
 		}
-		
+
 		if (layout.isResizeParent())
 		{
 			adjustParents(parentsChanged);
@@ -1324,8 +1324,8 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	}
 
 	/**
-	 * Adjust parent cells whose child geometries have changed. The default 
-	 * implementation adjusts the group to just fit around the children with 
+	 * Adjust parent cells whose child geometries have changed. The default
+	 * implementation adjusts the group to just fit around the children with
 	 * a padding.
 	 */
 	protected void adjustParents(Set<Object> parentsChanged)
@@ -1335,7 +1335,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Separates the x position of edges as they connect to vertices
-	 * 
+	 *
 	 * @param model
 	 *            an internal model of the hierarchical layout
 	 */
@@ -1492,7 +1492,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 									currentX += edgeSpacing;
 									pos[m * 4 + k * 2 + 1] = currentYOffset;
 								}
-								
+
 								maxYOffset = Math.max(maxYOffset,
 										currentYOffset);
 							}
@@ -1510,7 +1510,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	}
 
 	/**
-	 * Fixes the control points 
+	 * Fixes the control points
 	 * @param cell
 	 */
 	protected void setEdgePosition(mxGraphAbstractHierarchyCell cell)
@@ -1526,7 +1526,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 		{
 			int maxRank = edge.maxRank;
 			int minRank = edge.minRank;
-			
+
 			if (maxRank == minRank)
 			{
 				maxRank = edge.source.maxRank;
@@ -1536,21 +1536,21 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 			Iterator<Object> parallelEdges = edge.edges.iterator();
 			int parallelEdgeCount = 0;
 			double[] jettys = jettyPositions.get(edge);
-			
-			Object source = edge.source.cell;
+
+			Object source = edge.isReversed() ? edge.target.cell : edge.source.cell;
 
 			while (parallelEdges.hasNext())
 			{
 				Object realEdge = parallelEdges.next();
 				Object realSource = layout.getGraph().getView().getVisibleTerminal(realEdge, true);
-				
+
 				List<mxPoint> newPoints = new ArrayList<mxPoint>(edge.x.length);
 
 				// Single length reversed edges end up with the jettys in the wrong
 				// places. Since single length edges only have jettys, not segment
 				// control points, we just say the edge isn't reversed in this section
 				boolean reversed = edge.isReversed();
-				
+
 				if (realSource != source)
 				{
 					// The real edges include all core model edges and these can go
@@ -1559,21 +1559,21 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 					// treat if as reversed
 					reversed = !reversed;
 				}
-				
+
 				// First jetty of edge
 				if (jettys != null)
 				{
 					int arrayOffset = reversed ? 2 : 0;
 					double y = reversed ? rankTopY[minRank] : rankBottomY[maxRank];
 					double jetty = jettys[parallelEdgeCount * 4 + 1 + arrayOffset];
-					
+
 					// If the edge is reversed invert the y position within the channel,
 					// unless it is a single length edge
 					if (reversed)
 					{
 						jetty = -jetty;
 					}
-					
+
 					y += jetty;
 					double x = jettys[parallelEdgeCount * 4 + arrayOffset];
 
@@ -1588,7 +1588,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 					}
 				}
 
-				// Declare variables to define loop through edge points and 
+				// Declare variables to define loop through edge points and
 				// change direction if edge is reversed
 
 				int loopStart = edge.x.length - 1;
@@ -1649,7 +1649,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 					int arrayOffset = reversed ? 2 : 0;
 					double rankY = reversed ? rankBottomY[maxRank] : rankTopY[minRank];
 					double jetty = jettys[parallelEdgeCount * 4 + 3 - arrayOffset];
-					
+
 					if (reversed)
 					{
 						jetty = -jetty;
@@ -1667,7 +1667,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 						newPoints.add(new mxPoint(y, x));
 					}
 				}
-				
+
 				if (edge.isReversed())
 				{
 					processReversedEdge(edge, realEdge);
@@ -1689,7 +1689,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 				{
 					offsetX = -offsetX + parallelEdgeSpacing;
 				}
-				
+
 				parallelEdgeCount++;
 			}
 
@@ -1727,7 +1727,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Hook to add additional processing
-	 * 
+	 *
 	 * @param edge
 	 *            The hierarchical model edge
 	 * @param realEdge
@@ -1786,7 +1786,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 		/**
 		 * comparator on the medianValue
-		 * 
+		 *
 		 * @param arg0
 		 *            the object to be compared to
 		 * @return the standard return you would expect when comparing two
@@ -1920,7 +1920,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 	/**
 	 * Sets the logging level of this class
-	 * 
+	 *
 	 * @param level
 	 *            the logging level to set
 	 */
