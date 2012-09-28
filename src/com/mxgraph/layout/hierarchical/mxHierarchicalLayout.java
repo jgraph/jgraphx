@@ -1,5 +1,5 @@
 /*
- * $Id: mxHierarchicalLayout.java,v 1.15 2012-06-26 11:00:40 david Exp $
+ * $Id: mxHierarchicalLayout.java,v 1.17 2012-09-27 23:18:27 david Exp $
  * Copyright (c) 2005-2012, JGraph Ltd
  */
 package com.mxgraph.layout.hierarchical;
@@ -344,13 +344,13 @@ JGraphLayout.Stoppable*/
 
 			while (!filledVertexSet.isEmpty())
 			{
-				Set<Object> vertexSet = new LinkedHashSet<Object>();
-				hierarchyVertices.add(vertexSet);
-
 				List<Object> candidateRoots = findRoots(parent, filledVertexSet);
 
 				for (Object root : candidateRoots)
 				{
+					Set<Object> vertexSet = new LinkedHashSet<Object>();
+					hierarchyVertices.add(vertexSet);
+
 					traverse(root, true, null, allVertexSet, vertexSet,
 							hierarchyVertices, filledVertexSet);
 				}
@@ -372,6 +372,9 @@ JGraphLayout.Stoppable*/
 			}
 		}
 
+		// Iterate through the result removing parents who have children in this layout
+		
+		
 		// Perform a layout for each separate hierarchy
 		// Track initial coordinate x-positioning
 		double initialX = 0;
@@ -393,6 +396,8 @@ JGraphLayout.Stoppable*/
 
 	/**
 	 * Creates a set of descendant cells
+	 * @param cell The cell whose descendants are to be calculated
+	 * @return the descendants of the cell (not the cell)
 	 */
 	public Set<Object> filterDescendants(Object cell)
 	{
