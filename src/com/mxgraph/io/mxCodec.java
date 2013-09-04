@@ -437,9 +437,9 @@ public class mxCodec
 		mxICell target = cell.getTerminal(false);
 
 		// Fixes possible inconsistencies during insert into graph
-	    cell.removeFromTerminal(false);
-	    cell.removeFromTerminal(true);
-	    cell.removeFromParent();
+		cell.removeFromTerminal(false);
+		cell.removeFromTerminal(true);
+		cell.removeFromParent();
 		
 		if (parent != null)
 		{
