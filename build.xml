@@ -5,11 +5,14 @@
 
 <!-- ===================== Project Properties =========================== -->
 
-<project name="mxgraph" default="all" basedir=".">
+<project name="mxgraph" default="all" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
-	<property name="product.name"    value="JGraph X"/>
-	<property name="product.version" value="2.1.1.2"/>
-	<property name="all.jar"         value="jgraphx.jar"/>
+	<property name="product.name"        value="JGraph X"/>
+	<property name="product.version"     value="2.1.1.2"/>
+	<property name="product.description" value="JGraphX is a Java Swing diagramming (graph visualisation) library licensed under the BSD license"/>
+	<property name="all.jar"             value="jgraphx.jar"/>
+	<property name="sources.jar"         value="jgraphx-sources.jar"/>
+	<property name="javadoc.jar"         value="jgraphx-javadoc.jar"/>
 
 <!-- ===================== Project Environment =========================== -->
 
@@ -21,6 +24,10 @@
 	<property name="compile.debug"       value="false"/>
 	<property name="compile.deprecation" value="false"/>
 	<property name="compile.optimize"    value="true"/>
+	
+<!-- ==================== Maven Options ==================== -->
+	<property name="maven.repository.url" value="http://hyperion:8081/content/repositories/thirdparty/"/>
+	<property name="maven.repository.id"  value="validit-nexus-releases-local"/>
 
 <!-- ==================== All ==================== -->
 
@@ -98,7 +105,48 @@
 		</jar>
 		<delete dir="${basedir}/classes"/>
 	</target>
-			
+	
+<!-- ==================== Maven ==================== -->
+	<target name="create-pom" description="Creates pom.xml for jgraphx project">
+		<artifact:pom file="pom.xml" id="pom" 
+			groupId="com.jgraph" 
+			artifactId="jgraphx" 
+			version="${product.version}" 
+			name="${product.name}" 
+			description="${product.description}">
+			<organization name="jgraph" url="http://www.jgraph.com"/>
+			<scm url="scm:git:https://github.com/jgraph/jgraphx"/>
+			<license name="bsd" url="https://github.com/jgraph/jgraphx/blob/master/license.txt"/>
+		</artifact:pom>
+		<artifact:writepom pomrefid="pom" file="lib/pom.xml"/>
+	</target>
+
+	<target name="maven-jar" description="Creates sources and javadoc jar files">
+		<jar jarfile="${basedir}/lib/${sources.jar}">
+			<fileset dir="${source.home}"/>
+		</jar>
+		<jar jarfile="${basedir}/lib/${javadoc.jar}">
+			<fileset dir="${basedir}/docs/api"/>
+		</jar>
+	</target>
+
+	<target name="maven-install" depends="create-pom, maven-jar" description="Install artifacts to maven local repository">
+		<artifact:install file="${basedir}/lib/${all.jar}">
+			<artifact:pom refid="pom"/>
+			<attach type="jar" file="${basedir}/lib/${sources.jar}" classifier="sources"/>
+			<attach type="jar" file="${basedir}/lib/${javadoc.jar}" classifier="javadoc"/>
+		</artifact:install>
+	</target>
+
+	<target name="maven-deploy" depends="create-pom, maven-jar" description="Deploy artifacts to maven repository">
+		<artifact:deploy file="${basedir}/lib/${all.jar}">
+			<artifact:pom refid="pom"/>
+			<remoterepository url="${maven.repository.url}" id="${maven.repository.id}"/>
+			<attach type="jar" file="${basedir}/lib/${sources.jar}" classifier="sources"/>
+			<attach type="jar" file="${basedir}/lib/${javadoc.jar}" classifier="javadoc"/>
+		</artifact:deploy>
+	</target>
+
 <!-- ==================== Example ==================== -->
 
     <target name="example" depends="build" description="Compiles the examples">
