@@ -528,13 +528,14 @@ public class mxGraphView extends mxEventSource
 					state.setWidth(scale * geo.getWidth());
 					state.setHeight(scale * geo.getHeight());
 
-					if (model.isVertex(cell))
-					{
-						updateVertexLabelOffset(state);
-					}
-
 					// Updates the cached label
 					updateLabel(state);
+					
+					if (model.isVertex(cell))
+					{
+						updateLabelBounds(state);
+						updateVertexLabelOffset(state);
+					}
 				}
 			}
 
@@ -577,12 +578,14 @@ public class mxGraphView extends mxEventSource
 		if (horizontal.equals(mxConstants.ALIGN_LEFT))
 		{
 			state.absoluteOffset.setX(state.absoluteOffset.getX()
-					- state.getWidth());
+					- state.getWidth() / 2
+					- state.getLabelBounds().getWidth() / 2);
 		}
 		else if (horizontal.equals(mxConstants.ALIGN_RIGHT))
 		{
 			state.absoluteOffset.setX(state.absoluteOffset.getX()
-					+ state.getWidth());
+					+ state.getWidth() / 2
+					+ state.getLabelBounds().getWidth() / 2);
 		}
 
 		String vertical = mxUtils.getString(state.getStyle(),
@@ -592,12 +595,14 @@ public class mxGraphView extends mxEventSource
 		if (vertical.equals(mxConstants.ALIGN_TOP))
 		{
 			state.absoluteOffset.setY(state.absoluteOffset.getY()
-					- state.getHeight());
+					- state.getHeight() / 2
+					- state.getLabelBounds().getHeight() / 2);
 		}
 		else if (vertical.equals(mxConstants.ALIGN_BOTTOM))
 		{
 			state.absoluteOffset.setY(state.absoluteOffset.getY()
-					+ state.getHeight());
+					+ state.getHeight() / 2
+					+ state.getLabelBounds().getHeight() / 2);
 		}
 	}
 
