@@ -7838,7 +7838,17 @@ public class mxGraph extends mxEventSource
 			{
 				Graphics g = ((mxGraphics2DCanvas) clippedCanvas).getGraphics();
 				clip = g.getClip();
-				g.setClip(newClip);
+
+				// Ensure that our new clip resides within our old clip
+				if (clip instanceof Rectangle)
+				{
+					g.setClip(newClip.intersection((Rectangle) clip));
+				}
+				// Otherwise, default to original implementation
+				else
+				{
+					g.setClip(newClip);
+				}
 			}
 
 			if (drawLabel)
