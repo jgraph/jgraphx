@@ -30,6 +30,7 @@ import com.mxgraph.shape.mxCurveShape;
 import com.mxgraph.shape.mxCylinderShape;
 import com.mxgraph.shape.mxDefaultTextShape;
 import com.mxgraph.shape.mxDoubleEllipseShape;
+import com.mxgraph.shape.mxDoubleRectangleShape;
 import com.mxgraph.shape.mxEllipseShape;
 import com.mxgraph.shape.mxHexagonShape;
 import com.mxgraph.shape.mxHtmlTextShape;
@@ -93,6 +94,7 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 		putShape(mxConstants.SHAPE_CYLINDER, new mxCylinderShape());
 		putShape(mxConstants.SHAPE_CURVE, new mxCurveShape());
 		putShape(mxConstants.SHAPE_DOUBLE_ELLIPSE, new mxDoubleEllipseShape());
+		putShape(mxConstants.SHAPE_DOUBLE_RECTANGLE, new mxDoubleRectangleShape());
 		putShape(mxConstants.SHAPE_ELLIPSE, new mxEllipseShape());
 		putShape(mxConstants.SHAPE_HEXAGON, new mxHexagonShape());
 		putShape(mxConstants.SHAPE_IMAGE, new mxImageShape());

@@ -953,6 +953,11 @@ public class mxConstants
 	 * SHAPE_RECTANGLE
 	 */
 	public static final String SHAPE_RECTANGLE = "rectangle";
+	
+	/**
+	 * SHAPE_DOUBLE_RECTANGLE
+	 */
+	public static final String SHAPE_DOUBLE_RECTANGLE = "doubleRectangle";
 
 	/**
 	 * SHAPE_ELLIPSE

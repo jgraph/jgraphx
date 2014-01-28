@@ -130,6 +130,13 @@ public class GraphEditor extends BasicGraphEditor
 						null, 160, 120, "");
 		shapesPalette
 				.addTemplate(
+						"Double Rectangle",
+						new ImageIcon(
+								GraphEditor.class
+										.getResource("/com/mxgraph/examples/swing/images/doublerectangle.png")),
+						"rectangle;shape=doubleRectangle", 160, 120, "");
+		shapesPalette
+				.addTemplate(
 						"Rounded Rectangle",
 						new ImageIcon(
 								GraphEditor.class
