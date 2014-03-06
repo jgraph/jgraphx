@@ -1,5 +1,5 @@
 /**
- * $Id: mxGraph.java,v 1.2 2013/02/20 11:41:05 gaudenz Exp $
+ * $Id: mxGraph.java,v 1.6 2014/02/19 09:40:59 gaudenz Exp $
  * Copyright (c) 2007, Gaudenz Alder
  */
 package com.mxgraph.view;
@@ -195,9 +195,9 @@ public class mxGraph extends mxEventSource
 
 	/**
 	 * Holds the version number of this release. Current version
-	 * is 2.1.0.7.
+	 * is 2.5.0.2.
 	 */
-	public static final String VERSION = "2.1.0.7";
+	public static final String VERSION = "2.5.0.2";
 
 	/**
 	 * 
@@ -249,6 +249,12 @@ public class mxGraph extends mxEventSource
 	 * Specifies if the grid is enabled. Default is true.
 	 */
 	protected boolean gridEnabled = true;
+
+	/**
+	 * Specifies if ports are enabled. This is used in <cellConnected> to update
+	 * the respective style. Default is true.
+	 */
+	protected boolean portsEnabled = true;
 
 	/**
 	 * Value returned by getOverlap if isAllowOverlapParent returns
@@ -1147,6 +1153,7 @@ public class mxGraph extends mxEventSource
 			removeStateForCell(model.getChildAt(cell, i));
 		}
 
+		view.invalidate(cell);
 		view.removeState(cell);
 	}
 
@@ -4262,20 +4269,26 @@ public class mxGraph extends mxEventSource
 
 				// Updates the constraint
 				setConnectionConstraint(edge, terminal, source, constraint);
-
-				// Checks if the new terminal is a port
-				String id = null;
-
-				if (isPort(terminal) && terminal instanceof mxICell)
+				
+				// Checks if the new terminal is a port, uses the ID of the port in the
+				// style and the parent of the port as the actual terminal of the edge.
+				if (isPortsEnabled())
 				{
-					id = ((mxICell) terminal).getId();
-					terminal = getTerminalForPort(terminal, source);
+					// Checks if the new terminal is a port
+					String id = null;
+	
+					if (isPort(terminal) && terminal instanceof mxICell)
+					{
+						id = ((mxICell) terminal).getId();
+						terminal = getTerminalForPort(terminal, source);
+					}
+	
+					// Sets or resets all previous information for connecting to a child port
+					String key = (source) ? mxConstants.STYLE_SOURCE_PORT
+							: mxConstants.STYLE_TARGET_PORT;
+					setCellStyles(key, id, new Object[] { edge });
 				}
-
-				// Sets or resets all previous information for connecting to a child port
-				String key = (source) ? mxConstants.STYLE_SOURCE_PORT
-						: mxConstants.STYLE_TARGET_PORT;
-				setCellStyles(key, id, new Object[] { edge });
+				
 				model.setTerminal(edge, terminal, source);
 
 				if (isResetEdgesOnConnect())
@@ -4726,7 +4739,6 @@ public class mxGraph extends mxEventSource
 	public mxRectangle getCellBounds(Object cell, boolean includeEdges,
 			boolean includeDescendants, boolean boundingBox)
 	{
-		mxRectangle result = null;
 		Object[] cells;
 
 		// Recursively includes connected edges
@@ -4761,32 +4773,28 @@ public class mxGraph extends mxEventSource
 			cells = new Object[] { cell };
 		}
 
-		if (boundingBox)
-		{
-			result = view.getBoundingBox(cells);
-		}
-		else
-		{
-			result = view.getBounds(cells);
-		}
+		mxRectangle result = view.getBounds(cells, boundingBox);
 
 		// Recursively includes the bounds of the children
 		if (includeDescendants)
 		{
-			int childCount = model.getChildCount(cell);
-
-			for (int i = 0; i < childCount; i++)
+			for (int i = 0; i < cells.length; i++)
 			{
-				mxRectangle tmp = getCellBounds(model.getChildAt(cell, i),
-						includeEdges, true, boundingBox);
-
-				if (result != null)
+				int childCount = model.getChildCount(cells[i]);
+	
+				for (int j = 0; j < childCount; j++)
 				{
-					result.add(tmp);
-				}
-				else
-				{
-					result = tmp;
+					mxRectangle tmp = getCellBounds(model.getChildAt(cells[i], j),
+							includeEdges, true, boundingBox);
+	
+					if (result != null)
+					{
+						result.add(tmp);
+					}
+					else
+					{
+						result = tmp;
+					}
 				}
 			}
 		}
@@ -6610,7 +6618,30 @@ public class mxGraph extends mxEventSource
 		boolean oldValue = gridEnabled;
 		gridEnabled = value;
 
-		changeSupport.firePropertyChange("gridEnabled", oldValue, gridSize);
+		changeSupport.firePropertyChange("gridEnabled", oldValue, gridEnabled);
+	}
+
+	/**
+	 * Returns true if ports are enabled.
+	 * 
+	 * @return Returns the enabled state of the ports.
+	 */
+	public boolean isPortsEnabled()
+	{
+		return portsEnabled;
+	}
+
+	/**
+	 * Sets if ports are enabled.
+	 * 
+	 * @param value Specifies if the ports should be enabled.
+	 */
+	public void setPortsEnabled(boolean value)
+	{
+		boolean oldValue = portsEnabled;
+		portsEnabled = value;
+
+		changeSupport.firePropertyChange("portsEnabled", oldValue, portsEnabled);
 	}
 
 	/**
@@ -7838,7 +7869,17 @@ public class mxGraph extends mxEventSource
 			{
 				Graphics g = ((mxGraphics2DCanvas) clippedCanvas).getGraphics();
 				clip = g.getClip();
-				g.setClip(newClip);
+				
+				// Ensure that our new clip resides within our old clip
+				if (clip instanceof Rectangle)
+				{
+					g.setClip(newClip.intersection((Rectangle) clip));
+				}
+				// Otherwise, default to original implementation
+				else
+				{
+					g.setClip(newClip);
+				}
 			}
 
 			if (drawLabel)

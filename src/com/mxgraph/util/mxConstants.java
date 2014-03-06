@@ -1,5 +1,5 @@
 /**
- * $Id: mxConstants.java,v 1.5 2013/02/20 11:41:05 gaudenz Exp $
+ * $Id: mxConstants.java,v 1.9 2014/02/08 14:05:57 gaudenz Exp $
  * Copyright (c) 2007-2012, JGraph Ltd
  */
 package com.mxgraph.util;
@@ -18,12 +18,6 @@ public class mxConstants
 	 * Defines the number of degrees per radian.
 	 */
 	public static double DEG_PER_RAD = 57.2957795;
-
-	/**
-	 * Defines the ratio between px units in HTML markup and pixels on screen.
-	 * Default is 0.77.
-	 */
-	public static double PX_PER_PIXEL = 0.77;
 
 	/**
 	 * Defines the minimum scale at which rounded polylines should be painted.
@@ -93,6 +87,12 @@ public class mxConstants
 	 * http://docs.oracle.com/javase/6/docs/api/index.html?javax/swing/text/html/CSS.html
 	 */
 	public static float LINE_HEIGHT = 1.2f;
+
+	/**
+	 * Specifies if absolute line heights should be used (px) in CSS. Default
+	 * is false. Set this to true for backwards compatibility.
+	 */
+	public static boolean ABSOLUTE_LINE_HEIGHT = false;
 
 	/**
 	 * Specifies the line spacing. Default is 0.
@@ -547,6 +547,21 @@ public class mxConstants
 	 */
 	public static String STYLE_STENCIL_FLIPV = "stencilFlipV";
 
+
+	/**
+	 * Defines the key for the horizontal image flip. This style is only used
+	 * in <mxImageShape>. Possible values are 0 and 1. Default is 0.
+	 */
+	public static String STYLE_FLIPH = "flipH";
+
+	/**
+	 * Variable: STYLE_FLIPV
+	 * 
+	 * Defines the key for the vertical flip. Possible values are 0 and 1.
+	 * Default is 0.
+	 */
+	public static String STYLE_FLIPV = "flipV";
+
 	/**
 	 * Defines the key for the noLabel style. If this is
 	 * true then no label is visible for a given cell.
@@ -949,6 +964,11 @@ public class mxConstants
 	 * SHAPE_ELLIPSE
 	 */
 	public static final String SHAPE_ELLIPSE = "ellipse";
+
+	/**
+	 * SHAPE_DOUBLE_RECTANGLE
+	 */
+	public static final String SHAPE_DOUBLE_RECTANGLE = "doubleRectangle";
 
 	/**
 	 * SHAPE_DOUBLE_ELLIPSE

@@ -1,5 +1,5 @@
 /**
- * $Id: mxGraphics2DCanvas.java,v 1.1 2012/11/15 13:26:47 gaudenz Exp $
+ * $Id: mxGraphics2DCanvas.java,v 1.3 2014/02/08 14:05:57 gaudenz Exp $
  * Copyright (c) 2007-2012, JGraph Ltd
  */
 package com.mxgraph.canvas;
@@ -30,6 +30,7 @@ import com.mxgraph.shape.mxCurveShape;
 import com.mxgraph.shape.mxCylinderShape;
 import com.mxgraph.shape.mxDefaultTextShape;
 import com.mxgraph.shape.mxDoubleEllipseShape;
+import com.mxgraph.shape.mxDoubleRectangleShape;
 import com.mxgraph.shape.mxEllipseShape;
 import com.mxgraph.shape.mxHexagonShape;
 import com.mxgraph.shape.mxHtmlTextShape;
@@ -92,6 +93,7 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 		putShape(mxConstants.SHAPE_CONNECTOR, new mxConnectorShape());
 		putShape(mxConstants.SHAPE_CYLINDER, new mxCylinderShape());
 		putShape(mxConstants.SHAPE_CURVE, new mxCurveShape());
+		putShape(mxConstants.SHAPE_DOUBLE_RECTANGLE, new mxDoubleRectangleShape());
 		putShape(mxConstants.SHAPE_DOUBLE_ELLIPSE, new mxDoubleEllipseShape());
 		putShape(mxConstants.SHAPE_ELLIPSE, new mxEllipseShape());
 		putShape(mxConstants.SHAPE_HEXAGON, new mxHexagonShape());
@@ -415,6 +417,14 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 					// point with a spacing of size off the current point
 					// into direction of the next point
 					mxPoint next = points[i + 1];
+
+					// Uses next non-overlapping point
+					while (i < points.length - 2 && Math.round(next.getX() - tmp.getX()) == 0 && Math.round(next.getY() - tmp.getY()) == 0)
+					{
+						next = points[i + 2];
+						i++;
+					}
+					
 					dx = next.getX() - tmp.getX();
 					dy = next.getY() - tmp.getY();
 
