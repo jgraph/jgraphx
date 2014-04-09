@@ -1677,6 +1677,21 @@ public class mxUtils
 		return new Font(fontFamily, swingFontStyle, (int) (fontSize * scale));
 	}
 
+    /**
+     * Returns the value for key in dictionary as an Image.
+     *
+     * @param dict
+     *            Dictionary that contains the key, value pairs.
+     * @param key
+     *            Key whose value should be returned.
+     * @return Returns the integer value for key in dict.
+     */
+    public static java.awt.Image getImage(Map<String, Object> dict, String key)
+    {
+        Object value = dict.get(key);
+        return (java.awt.Image)value;
+    }
+
 	/**
 	 * 
 	 */

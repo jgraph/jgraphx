@@ -158,4 +158,13 @@ public abstract class mxBasicCanvas implements mxICanvas
 		return filename;
 	}
 
+    /**
+     * Gets image that is already loaded into memory, from the given style.
+     */
+    public java.awt.Image getLoadedImageForStyle(Map<String, Object> style)
+    {
+        java.awt.Image img = mxUtils.getImage(style, mxConstants.STYLE_IMAGE);
+        return img;
+    }
+
 }
