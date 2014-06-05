@@ -1,13 +1,6 @@
-/*
+/**
  * $Id: mxGraphAnalysis.java,v 1.2 2012/11/21 14:16:01 mate Exp $
  * Copyright (c) 2001-2005, Gaudenz Alder
- * 
- * All rights reserved. 
- * 
- * This file is licensed under the JGraph software license, a copy of which
- * will have been provided to you in the file LICENSE at the root of your
- * installation directory. If you are unable to locate this file please
- * contact JGraph sales for another copy.
  */
 package com.mxgraph.analysis;
 
