@@ -4091,7 +4091,7 @@ public class mxGraphComponent extends JScrollPane implements Printable
 
 			if (rect.x < 0)
 			{
-				translate.x = Math.max(translate.x, Math.max(0, -rect.x));
+				translate.x = Math.max(translate.x, Math.max(0, -rect.x)); // can't understand here
 				d.width = sp.width;
 
 				if (min != null)
