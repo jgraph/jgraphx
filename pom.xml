@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.mxgraph</groupId>
+  <artifactId>jgraphx</artifactId>
+  <version>3.1.0.0</version>
+  <packaging>jar</packaging>
+
+  <url>http://www.jgraph.com</url>
+
+  <properties>
+  
+   <maven.compiler.source>1.5</maven.compiler.source>
+   <maven.compiler.target>1.5</maven.compiler.target>
+   <maven.compiler.compilerVersion>1.5</maven.compiler.compilerVersion>
+   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+  </dependencies>
+    
+  <build>
+			<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<excludes>
+					<exclude>**.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+  	<plugins>
+  	
+  	</plugins>
+  </build>
+</project>
