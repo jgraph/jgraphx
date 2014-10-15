@@ -28,8 +28,7 @@ There's also the API specifications at https://jgraph.github.io/mxgraph/java/doc
 
 There is a 'jgraphx' tag on Stackoverflow - https://stackoverflow.com/questions/tagged/jgraphx, but please ensure 
 you understand the SO FAQ and posting guidelines prior to posting. To post on SO you must 1) have a _question_ , 
-2) that question be _programming_ related and 3) use the 'jgraphx' tag. If it's not a programming question, post 
-on our Google+ stream instead - https://plus.google.com/b/114366056917507510100/114366056917507510100/posts.
+2) that question be _programming_ related and 3) use the 'jgraphx' tag.
 
 JGraphX shares the changelog and version number of mxGraph, our JavaScript implementation of the same idea. This 
 is because many people use the Java API on the server with mxGraph, so the model APIs have to be identical on each 
