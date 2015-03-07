@@ -381,8 +381,8 @@ public class mxCodec
 					child = child.getNextSibling();
 				}
 
-				String name = mxCell.class.getSimpleName();
-				decoder = mxCodecRegistry.getCodec(name);
+//				String name = mxCell.class.getSimpleName();
+//				decoder = mxCodecRegistry.getCodec(name);
 			}
 
 			if (!(decoder instanceof mxCellCodec))
