@@ -1731,14 +1731,23 @@ public class mxUtils
 	public static float[] parseDashPattern(String dashPatternString)
 			throws NumberFormatException
 	{
-		if (value != null && value.length() > 0)
+		if (dashPatternString != null && dashPatternString.length() > 0)
 		{
 			String[] tokens = dashPatternString.split(" ");
 			float[] dashpattern = new float[tokens.length];
+			float dashWidth;
 			
 			for (int i = 0; i < tokens.length; i++)
 			{
-				dashpattern[i] = (float) (Float.parseFloat(tokens[i]));
+				dashWidth = (float) (Float.parseFloat(tokens[i]));
+				if (dashWidth > 0)
+				{
+					dashpattern[i] = dashWidth;
+				}
+				else
+				{
+					throw NumberFormatException("Dash width must be positive");
+				}
 			}
 			
 			return dashpattern;
