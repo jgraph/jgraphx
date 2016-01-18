@@ -403,7 +403,7 @@ JGraphLayout.Stoppable*/
 		mxIGraphModel model = graph.getModel();
 		Set<Object> result = new LinkedHashSet<Object>();
 
-		if (model.isVertex(cell) && cell != this.parent && graph.isCellVisible(cell))
+		if (model.isVertex(cell) && cell != this.parent && graph.getView().getState(cell) != null)
 		{
 			result.add(cell);
 		}
