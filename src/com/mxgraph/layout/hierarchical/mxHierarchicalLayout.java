@@ -184,13 +184,14 @@ JGraphLayout.Stoppable*/
 
 		if (roots != null && parent != null)
 		{
-			for (Object root : roots)
-			{
-				if (!model.isAncestor(parent, root))
-				{
-					roots.remove(root);
-				}
-			}
+		    for(Iterator<Object> it=roots.iterator();it.hasNext();)
+		    {
+		        Object root=it.next();
+		        if (!model.isAncestor(parent, root))
+		        {
+		            it.remove();
+		        }
+		    }
 		}
 
 		this.roots = roots;
