@@ -93,13 +93,6 @@ JGraphLayout.Stoppable*/
 	protected boolean fineTuning = true;
 
 	/**
-	 * Whether or not to promote edges that terminate on vertices with
-	 * different but common ancestry to appear connected to the highest
-	 * siblings in the ancestry chains
-	 */
-	protected boolean promoteEdges = true;
-
-	/**
 	 * Whether or not to navigate edges whose terminal vertices 
 	 * have different parents but are in the same ancestry chain
 	 */
@@ -403,7 +396,7 @@ JGraphLayout.Stoppable*/
 		mxIGraphModel model = graph.getModel();
 		Set<Object> result = new LinkedHashSet<Object>();
 
-		if (model.isVertex(cell) && cell != this.parent && graph.getView().getState(cell) != null)
+		if (model.isVertex(cell) && cell != this.parent && graph.isCellVisible(cell))
 		{
 			result.add(cell);
 		}
