@@ -1,5 +1,6 @@
 JGraphX
 =======
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.vlsi.mxgraph/jgraphx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.vlsi.mxgraph/jgraphx)
 
 JGraphX is a Java Swing diagramming (graph visualisation) library licensed under the BSD license. Although, the package 
 names use that of 'mxGraph', this library is not called mxGraph. mxGraph is the JavaScript diagramming library 
