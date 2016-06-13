@@ -1,0 +1,26 @@
+sudo: false
+language: java
+
+# Skip default "mvn install" issued by Travis
+# Root project cannot be compiled with older JDKs, so it makes sense to just skip the step
+install: true
+
+before_cache:
+  # No sense in caching current build artifacts
+  rm -rf $HOME/.m2/repository/com/github/vlsi
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+
+script:
+  - if [[ "$JAVADOC" == *'Y'* ]]; then mvn javadoc:javadoc; else mvn clean install -B -V; fi
+
+matrix:
+  fast_finish: true
+  include:
+    - jdk: oraclejdk8
+    - jdk: oraclejdk7
+    - jdk: oraclejdk8
+      env:
+        - JAVADOC=Y
