@@ -2,8 +2,7 @@ JGraphX
 =======
 
 JGraphX is a Java Swing diagramming (graph visualisation) library licensed under the BSD license. Although, the package 
-names use that of 'mxGraph', this library is not called mxGraph. mxGraph is the JavaScript diagramming library 
-that we sell commercially only (it isn't open source) - https://www.jgraph.com.
+names use that of 'mxGraph', this library is not called mxGraph. mxGraph is the JavaScript diagramming library - https://github.com/jgraph/mxgraph.
 
 It was originally named JGraph through versions 1-5, this technically is version 6, but we changed the name to reflect 
 the fact that the entire codebase and API was rewritten from scratch.
