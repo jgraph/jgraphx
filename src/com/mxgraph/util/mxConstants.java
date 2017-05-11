@@ -1021,7 +1021,12 @@ public class mxConstants
 	 */
 	public static final String SHAPE_IMAGE = "image";
 
-	/**
+    /**
+     * SHAPE_IMAGE
+     */
+    public static final String SHAPE_LOADED_IMAGE = "image";
+
+    /**
 	 * SHAPE_ARROW
 	 */
 	public static final String SHAPE_ARROW = "arrow";

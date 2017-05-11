@@ -21,28 +21,7 @@ import java.util.Map;
 
 import javax.swing.CellRendererPane;
 
-import com.mxgraph.shape.mxActorShape;
-import com.mxgraph.shape.mxArrowShape;
-import com.mxgraph.shape.mxCloudShape;
-import com.mxgraph.shape.mxConnectorShape;
-import com.mxgraph.shape.mxCurveShape;
-import com.mxgraph.shape.mxCylinderShape;
-import com.mxgraph.shape.mxDefaultTextShape;
-import com.mxgraph.shape.mxDoubleEllipseShape;
-import com.mxgraph.shape.mxDoubleRectangleShape;
-import com.mxgraph.shape.mxEllipseShape;
-import com.mxgraph.shape.mxHexagonShape;
-import com.mxgraph.shape.mxHtmlTextShape;
-import com.mxgraph.shape.mxIShape;
-import com.mxgraph.shape.mxITextShape;
-import com.mxgraph.shape.mxImageShape;
-import com.mxgraph.shape.mxLabelShape;
-import com.mxgraph.shape.mxLineShape;
-import com.mxgraph.shape.mxRectangleShape;
-import com.mxgraph.shape.mxRhombusShape;
-import com.mxgraph.shape.mxStencilRegistry;
-import com.mxgraph.shape.mxSwimlaneShape;
-import com.mxgraph.shape.mxTriangleShape;
+import com.mxgraph.shape.*;
 import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxPoint;
@@ -97,6 +76,7 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 		putShape(mxConstants.SHAPE_ELLIPSE, new mxEllipseShape());
 		putShape(mxConstants.SHAPE_HEXAGON, new mxHexagonShape());
 		putShape(mxConstants.SHAPE_IMAGE, new mxImageShape());
+        putShape(mxConstants.SHAPE_LOADED_IMAGE, new mxLoadedImageShape());
 		putShape(mxConstants.SHAPE_LABEL, new mxLabelShape());
 		putShape(mxConstants.SHAPE_LINE, new mxLineShape());
 		putShape(mxConstants.SHAPE_RECTANGLE, new mxRectangleShape());
@@ -286,80 +266,89 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 		drawImage(bounds, imageUrl, PRESERVE_IMAGE_ASPECT, false, false);
 	}
 
+    public void drawImage(Rectangle bounds, java.awt.Image img)
+    {
+        drawImage( bounds, img, PRESERVE_IMAGE_ASPECT, false, false );
+    }
+
 	/**
 	 * 
 	 */
 	public void drawImage(Rectangle bounds, String imageUrl,
-			boolean preserveAspect, boolean flipH, boolean flipV)
+                          boolean preserveAspect, boolean flipH, boolean flipV)
 	{
 		if (imageUrl != null && bounds.getWidth() > 0 && bounds.getHeight() > 0)
 		{
-			Image img = loadImage(imageUrl);
-
-			if (img != null)
-			{
-				int w, h;
-				int x = bounds.x;
-				int y = bounds.y;
-				Dimension size = getImageSize(img);
-
-				if (preserveAspect)
-				{
-					double s = Math.min(bounds.width / (double) size.width,
-							bounds.height / (double) size.height);
-					w = (int) (size.width * s);
-					h = (int) (size.height * s);
-					x += (bounds.width - w) / 2;
-					y += (bounds.height - h) / 2;
-				}
-				else
-				{
-					w = bounds.width;
-					h = bounds.height;
-				}
-
-				Image scaledImage = (w == size.width && h == size.height) ? img
-						: img.getScaledInstance(w, h, IMAGE_SCALING);
-
-				if (scaledImage != null)
-				{
-					AffineTransform af = null;
-
-					if (flipH || flipV)
-					{
-						af = g.getTransform();
-						int sx = 1;
-						int sy = 1;
-						int dx = 0;
-						int dy = 0;
-
-						if (flipH)
-						{
-							sx = -1;
-							dx = -w - 2 * x;
-						}
-
-						if (flipV)
-						{
-							sy = -1;
-							dy = -h - 2 * y;
-						}
-
-						g.scale(sx, sy);
-						g.translate(dx, dy);
-					}
-
-					drawImageImpl(scaledImage, x, y);
-
-					// Restores the previous transform
-					if (af != null)
-					{
-						g.setTransform(af);
-					}
-				}
-			}
+            java.awt.Image img = loadImage(imageUrl);
+            drawImage(bounds, img, preserveAspect, flipH, flipV);
 		}
 	}
+
+    public void drawImage(Rectangle bounds, java.awt.Image img,
+                           boolean preserveAspect, boolean flipH, boolean flipV) {
+        if (img != null)
+        {
+            int w, h;
+            int x = bounds.x;
+            int y = bounds.y;
+            Dimension size = getImageSize(img);
+
+            if (preserveAspect)
+            {
+                double s = Math.min(bounds.width / (double) size.width,
+                        bounds.height / (double) size.height);
+                w = (int) (size.width * s);
+                h = (int) (size.height * s);
+                x += (bounds.width - w) / 2;
+                y += (bounds.height - h) / 2;
+            }
+            else
+            {
+                w = bounds.width;
+                h = bounds.height;
+            }
+
+            Image scaledImage = (w == size.width && h == size.height) ? img
+                    : img.getScaledInstance(w, h, IMAGE_SCALING);
+
+            if (scaledImage != null)
+            {
+                AffineTransform af = null;
+
+                if (flipH || flipV)
+                {
+                    af = g.getTransform();
+                    int sx = 1;
+                    int sy = 1;
+                    int dx = 0;
+                    int dy = 0;
+
+                    if (flipH)
+                    {
+                        sx = -1;
+                        dx = -w - 2 * x;
+                    }
+
+                    if (flipV)
+                    {
+                        sy = -1;
+                        dy = -h - 2 * y;
+                    }
+
+                    g.scale(sx, sy);
+                    g.translate(dx, dy);
+                }
+
+                drawImageImpl(scaledImage, x, y);
+
+                // Restores the previous transform
+                if (af != null)
+                {
+                    g.setTransform(af);
+                }
+            }
+        }
+    }
 
 	/**
 	 * Implements the actual graphics call.
