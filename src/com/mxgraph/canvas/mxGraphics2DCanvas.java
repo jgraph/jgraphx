@@ -94,6 +94,7 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 		putShape(mxConstants.SHAPE_CURVE, new mxCurveShape());
 		putShape(mxConstants.SHAPE_DOUBLE_RECTANGLE, new mxDoubleRectangleShape());
 		putShape(mxConstants.SHAPE_DOUBLE_ELLIPSE, new mxDoubleEllipseShape());
+		putShape(mxConstants.SHAPE_DOUBLE_RECTANGLE, new mxDoubleRectangleShape());
 		putShape(mxConstants.SHAPE_ELLIPSE, new mxEllipseShape());
 		putShape(mxConstants.SHAPE_HEXAGON, new mxHexagonShape());
 		putShape(mxConstants.SHAPE_IMAGE, new mxImageShape());
