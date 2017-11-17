@@ -40,6 +40,8 @@ import com.mxgraph.view.mxGraph;
 public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 {
 
+	private static final Logger log = Logger.getLogger(mxCoordinateAssignment.class.getName());
+
 	enum HierarchicalEdgeStyle
 	{
 		ORTHOGONAL, POLYLINE, STRAIGHT
@@ -226,11 +228,14 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	{
 		mxGraphHierarchyModel model = layout.getModel();
 
-		System.out.println("======Coord assignment debug=======");
+		log.fine("======Coord assignment debug=======");
 
 		for (int j = 0; j < model.ranks.size(); j++)
 		{
-			System.out.print("Rank " + j + " : " );
+			StringBuilder msg = new StringBuilder();
+			msg.append("Rank ");
+			msg.append(j);
+			msg.append(" : ");
 			mxGraphHierarchyRank rank = model.ranks
 					.get(new Integer(j));
 			Iterator<mxGraphAbstractHierarchyCell> iter = rank
@@ -239,12 +244,13 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 			while (iter.hasNext())
 			{
 				mxGraphAbstractHierarchyCell cell = iter.next();
-				System.out.print(cell.getX(j) + "  ");
+				msg.append(cell.getX(j));
+				msg.append("  ");
 			}
-			System.out.println();
+			log.fine(msg.toString());
 		}
 		
-		System.out.println("====================================");
+		log.fine("====================================");
 	}
 	
 	/**
@@ -1640,7 +1646,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 					limitX = Math.max(limitX, positionX);
 
 					//					double currentY = (rankTopY[currentRank] + rankBottomY[currentRank]) / 2.0;
-					//					System.out.println("topChannelY = " + topChannelY + " , "
+					//					log.fine("topChannelY = " + topChannelY + " , "
 					//							+ "exact Y = " + edge.y[j]);
 					currentRank += loopDelta;
 				}
@@ -1714,7 +1720,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 //		if (cell.minRank == -1)
 //		{
-//			System.out.println("invalid rank, never set");
+//			log.warning("invalid rank, never set");
 //		}
 
 		rankTopY[cell.minRank] = Math.min(rankTopY[cell.minRank], positionY);

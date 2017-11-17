@@ -14,6 +14,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -31,6 +33,8 @@ import com.mxgraph.util.mxUtils;
 @SuppressWarnings("unchecked")
 public class mxObjectCodec
 {
+
+	private static final Logger log = Logger.getLogger(mxObjectCodec.class.getName());
 
 	/**
 	 * Immutable empty set.
@@ -224,13 +228,11 @@ public class mxObjectCodec
 		}
 		catch (InstantiationException e)
 		{
-			// ignore
-			e.printStackTrace();
+			log.log(Level.SEVERE, "Failed to clone the template", e);
 		}
 		catch (IllegalAccessException e)
 		{
-			// ignore
-			e.printStackTrace();
+			log.log(Level.SEVERE, "Failed to clone the template", e);
 		}
 
 		return obj;
@@ -309,7 +311,7 @@ public class mxObjectCodec
 	 * </ul>
 	 * 
 	 * If no ID exists for a variable in {@link #idrefs} or if an object cannot be
-	 * encoded, a warning is printed to System.err.
+	 * encoded, a warning is logged.
 	 * 
 	 * @param enc Codec that controls the encoding process.
 	 * @param obj Object to be encoded.
@@ -438,7 +440,7 @@ public class mxObjectCodec
 
 				if (tmp == null)
 				{
-					System.err.println("mxObjectCodec.encode: No ID for "
+					log.severe("mxObjectCodec.encode: No ID for "
 							+ getName() + "." + fieldname + "=" + value);
 					return; // exit
 				}
@@ -534,7 +536,7 @@ public class mxObjectCodec
 		}
 		else
 		{
-			System.err.println("mxObjectCodec.encode: No node for " + getName()
+			log.severe("mxObjectCodec.encode: No node for " + getName()
 					+ "." + attr + ": " + value);
 		}
 	}
@@ -922,11 +924,11 @@ public class mxObjectCodec
 			}
 			catch (Exception e2)
 			{
-				System.err.println("setFieldValue: " + e2 + " on "
+				log.log(Level.SEVERE, "setFieldValue: " + e2 + " on "
 						+ obj.getClass().getSimpleName() + "."
 						+ field.getName() + " ("
 						+ field.getType().getSimpleName() + ") = " + value
-						+ " (" + value.getClass().getSimpleName() + ")");
+						+ " (" + value.getClass().getSimpleName() + ")", e2);
 			}
 		}
 	}
@@ -1088,7 +1090,7 @@ public class mxObjectCodec
 
 				if (tmp == null)
 				{
-					System.err.println("mxObjectCodec.decode: No object for "
+					log.severe("mxObjectCodec.decode: No object for "
 							+ getName() + "." + fieldname + "=" + value);
 					return; // exit
 				}
@@ -1146,7 +1148,7 @@ public class mxObjectCodec
 			else
 			{
 				value = dec.decode(child, template);
-				// System.out.println("Decoded " + child.getNodeName() + "."
+				// log.fine("Decoded " + child.getNodeName() + "."
 				// + fieldname + "=" + value);
 			}
 
@@ -1242,7 +1244,7 @@ public class mxObjectCodec
 				}
 				catch (Exception e)
 				{
-					System.err.println("Cannot process include: " + name);
+					log.log(Level.SEVERE, "Cannot process include: " + name, e);
 				}
 			}
 

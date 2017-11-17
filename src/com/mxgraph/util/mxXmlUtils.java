@@ -5,6 +5,8 @@ package com.mxgraph.util;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,6 +26,9 @@ import org.xml.sax.InputSource;
  */
 public class mxXmlUtils
 {
+
+	private static final Logger log = Logger.getLogger(mxXmlUtils.class.getName());
+
 	/**
 	 * 
 	 */
@@ -58,7 +63,7 @@ public class mxXmlUtils
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				log.log(Level.SEVERE, "Failed to construct a document builder", e);
 			}
 		}
 		
@@ -80,7 +85,7 @@ public class mxXmlUtils
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			log.log(Level.SEVERE, "Failed to parse XML", e);
 		}
 		
 		return null;

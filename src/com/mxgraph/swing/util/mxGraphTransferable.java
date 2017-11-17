@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.StringReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -32,6 +34,7 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * 
 	 */
 	private static final long serialVersionUID = 5123819419918087664L;
+	private static final Logger log = Logger.getLogger(mxGraphTransferable.class.getName());
 
 	/**
 	 * Global switch to disable image support in transferables. Set this to false as a workaround
@@ -520,8 +523,7 @@ public class mxGraphTransferable implements Transferable, UIResource,
 		}
 		catch (ClassNotFoundException cle)
 		{
-			System.err
-					.println("error initializing javax.swing.plaf.basic.BasicTranserable");
+			log.log(Level.SEVERE, "Error initializing javax.swing.plaf.basic.BasicTranserable", cle);
 		}
 
 		try
