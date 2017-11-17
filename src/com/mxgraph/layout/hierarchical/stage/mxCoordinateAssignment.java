@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.SwingConstants;
@@ -192,10 +191,6 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 	 */
 	protected mxGraphAbstractHierarchyCell[][] previousLayerConnectedCache;
 
-	/** The logger for this class */
-	private static Logger logger = Logger
-			.getLogger("com.jgraph.layout.hierarchical.JGraphCoordinateAssignment");
-
 	/**
 	 * Creates a coordinate assignment.
 	 * 
@@ -218,7 +213,6 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 		this.orientation = orientation;
 		this.initialX = initialX;
 		this.parallelEdgeSpacing = parallelEdgeSpacing;
-		setLoggerLevel(Level.OFF);
 	}
 
 	/**
@@ -895,7 +889,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 				}
 				else
 				{
-					logger.info("edge.edges is null");
+					log.finer("edge.edges is null");
 				}
 
 				cell.width = (numEdges - 1) * parallelEdgeSpacing;
@@ -911,7 +905,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 		if (boundsWarning == true)
 		{
-			logger.info("At least one cell has no bounds");
+			log.warning("At least one cell has no bounds");
 		}
 	}
 
@@ -991,7 +985,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 					}
 					else
 					{
-						logger.info("edge.edges is null");
+						log.finer("edge.edges is null");
 					}
 
 					cell.width = (numEdges - 1) * parallelEdgeSpacing;
@@ -1015,7 +1009,7 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 
 			if (boundsWarning == true)
 			{
-				logger.info("At least one cell has no bounds");
+				log.warning("At least one cell has no bounds");
 			}
 
 			rankY[rankValue] = y;
@@ -1919,21 +1913,4 @@ public class mxCoordinateAssignment implements mxHierarchicalLayoutStage
 		this.fineTuning = fineTuning;
 	}
 
-	/**
-	 * Sets the logging level of this class
-	 * 
-	 * @param level
-	 *            the logging level to set
-	 */
-	public void setLoggerLevel(Level level)
-	{
-		try
-		{
-			logger.setLevel(level);
-		}
-		catch (SecurityException e)
-		{
-			// Probably running in an applet
-		}
-	}
 }
