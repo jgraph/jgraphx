@@ -278,9 +278,22 @@ public class mxRectangle extends mxPoint
 	 * @return a <code>String</code> representing this
 	 * <code>mxRectangle</code>.
 	 */
+	@Override
 	public String toString()
 	{
-		return getClass().getName() + "[x=" + x + ",y=" + y + ",w=" + width
-				+ ",h=" + height + "]";
+		StringBuilder builder = new StringBuilder(32);
+		builder.append(getClass().getSimpleName());
+		builder.append(" [");
+		builder.append("x=");
+		builder.append(x);
+		builder.append(", y=");
+		builder.append(y);
+		builder.append(", width=");
+		builder.append(width);
+		builder.append(", height=");
+		builder.append(height);
+		builder.append("]");
+		return builder.toString();
 	}
+
 }

@@ -1857,6 +1857,22 @@ public class mxGraphView extends mxEventSource
 		return new mxCellState(this, cell, graph.getCellStyle(cell));
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder(128);
+		builder.append("mxGraphView [currentRoot=");
+		builder.append(currentRoot);
+		builder.append(", graphBounds=");
+		builder.append(graphBounds);
+		builder.append(", scale=");
+		builder.append(scale);
+		builder.append(", translate=");
+		builder.append(translate);
+		builder.append("]");
+		return builder.toString();
+	}
+
 	/**
 	 * Action to change the current root in a view.
 	 */
