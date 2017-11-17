@@ -156,8 +156,16 @@ public class mxPoint implements Serializable, Cloneable
 	 * of this <code>mxPoint</code>.
 	 * @return a string representation of this <code>mxPoint</code>.
 	 */
+	@Override
 	public String toString()
 	{
-		return getClass().getName() + "[" + x + ", " + y + "]";
+		StringBuilder builder = new StringBuilder(16);
+		builder.append("mxPoint [x=");
+		builder.append(x);
+		builder.append(", y=");
+		builder.append(y);
+		builder.append("]");
+		return builder.toString();
 	}
+
 }

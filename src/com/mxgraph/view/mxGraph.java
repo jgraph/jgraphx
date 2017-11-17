@@ -8052,6 +8052,18 @@ public class mxGraph extends mxEventSource
 		changeSupport.removePropertyChangeListener(propertyName, listener);
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("mxGraph [model=");
+		builder.append(model);
+		builder.append(", view=");
+		builder.append(view);
+		builder.append("]");
+		return builder.toString();
+	}
+
 	/**
 	 * Prints the version number on the console. 
 	 */

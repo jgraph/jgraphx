@@ -621,4 +621,18 @@ public class mxCell implements mxICell, Cloneable, Serializable
 		return value;
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder(64);
+		builder.append("mxCell [id=");
+		builder.append(id);
+		builder.append(", value=");
+		builder.append(value);
+		builder.append(", geometry=");
+		builder.append(geometry);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }
