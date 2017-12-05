@@ -200,7 +200,7 @@ public class mxGraphicsCanvas2D implements mxICanvas2D
 		}
 		catch (Exception e)
 		{
-			// ignore
+			log.log(Level.WARNING, "Failed to initialize renderer pane", e);
 		}
 	}
 

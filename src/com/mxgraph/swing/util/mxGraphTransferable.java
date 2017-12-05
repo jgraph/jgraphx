@@ -521,9 +521,9 @@ public class mxGraphTransferable implements Transferable, UIResource,
 			imageFlavors[0] = DataFlavor.imageFlavor;
 			imageFlavors[1] = new DataFlavor("image/png");
 		}
-		catch (ClassNotFoundException cle)
+		catch (ClassNotFoundException e)
 		{
-			log.log(Level.SEVERE, "Error initializing javax.swing.plaf.basic.BasicTranserable", cle);
+			log.log(Level.SEVERE, "Error initializing flavors", e);
 		}
 
 		try
@@ -531,9 +531,9 @@ public class mxGraphTransferable implements Transferable, UIResource,
 			dataFlavor = new DataFlavor(DataFlavor.javaSerializedObjectMimeType
 					+ "; class=com.mxgraph.swing.util.mxGraphTransferable");
 		}
-		catch (ClassNotFoundException cnfe)
+		catch (ClassNotFoundException e)
 		{
-			// do nothing
+			log.log(Level.SEVERE, "Error initializing dataFlavor", e);
 		}
 	}
 

@@ -344,9 +344,10 @@ public class mxGraphHandler extends mxMouseAdapter implements
 				currentDropTarget = dropTarget;
 			}
 		}
-		catch (TooManyListenersException tmle)
+		catch (TooManyListenersException e)
 		{
 			// should not happen... swing drop target is multicast
+			log.log(Level.SEVERE, "Failed to install drop target handler", e);
 		}
 	}
 

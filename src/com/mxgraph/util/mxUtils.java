@@ -97,7 +97,7 @@ public class mxUtils
 		}
 		catch (Exception e)
 		{
-			// ignore
+			log.log(Level.WARNING, "Failed to initialize font graphics", e);
 		}
 	}
 
@@ -1011,6 +1011,7 @@ public class mxUtils
 		}
 		catch (Exception e)
 		{
+			log.log(Level.SEVERE, "Failed to compute intersection", e);
 			// FIXME: Getting clipbounds sometimes throws an NPE
 		}
 
@@ -2010,9 +2011,9 @@ public class mxUtils
 					ByteArrayInputStream is = new ByteArrayInputStream(data);
 					img = ImageIO.read(is);
 				}
-				catch (Exception e1)
+				catch (Exception e)
 				{
-					// ignore
+					log.log(Level.SEVERE, "Failed to load a data URI image", e);
 				}
 			}
 			else
@@ -2038,6 +2039,8 @@ public class mxUtils
 					{
 						log.log(Level.SEVERE, "Failed to read the image from " + realUrl, e1);
 					}
+				} else {
+					log.log(Level.SEVERE, "Failed to load image from " + url);
 				}
 			}
 		}
@@ -2409,7 +2412,7 @@ public class mxUtils
 				}
 				catch (Exception e)
 				{
-					// ignore
+					log.log(Level.SEVERE, "Failed to eval expression: " + expression, e);
 				}
 			}
 		}

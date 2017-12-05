@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.w3c.dom.Element;
@@ -191,7 +192,7 @@ public class mxGraph extends mxEventSource
 		}
 		catch (Exception e)
 		{
-			// ignore
+			log.log(Level.SEVERE, "Failed to add the resource bundle", e);
 		}
 	}
 

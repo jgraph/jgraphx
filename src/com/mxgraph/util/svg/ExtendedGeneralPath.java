@@ -27,6 +27,8 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The <code>ExtendedGeneralPath</code> class represents a geometric
@@ -42,6 +44,8 @@ import java.util.Arrays;
  */
 public class ExtendedGeneralPath implements Shape, Cloneable
 {
+
+	private static final Logger log = Logger.getLogger(ExtendedGeneralPath.class.getName());
 
 	/** The enclosed general path. */
 	protected GeneralPath path;
@@ -788,6 +792,7 @@ public class ExtendedGeneralPath implements Shape, Cloneable
 		}
 		catch (CloneNotSupportedException ex)
 		{
+			log.log(Level.SEVERE, "Failed to clone the path", ex);
 		}
 		return null;
 	}

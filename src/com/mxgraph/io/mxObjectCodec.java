@@ -693,12 +693,13 @@ public class mxObjectCodec
 			}
 			catch (Exception e)
 			{
-				// ignore
+				log.log(Level.FINEST, "Failed to get field " + fieldname + " in class " + type, e);
 			}
 
 			type = type.getSuperclass();
 		}
 
+		log.severe("Field " + fieldname + " not found in " + obj);
 		return null;
 	}
 
@@ -739,9 +740,9 @@ public class mxObjectCodec
 							new Class[] { field.getType() });
 				}
 			}
-			catch (Exception e1)
+			catch (Exception e)
 			{
-				// ignore
+				log.log(Level.SEVERE, "Failed to get method " + name + " from " + obj, e);
 			}
 
 			// Adds accessor to cache
@@ -756,6 +757,18 @@ public class mxObjectCodec
 			}
 		}
 
+		if (method == null)
+		{
+			// this should be considered an error in the scope of this method, but the
+			// calling code already depends on this method failing softly to filter
+			// non-serializable properties, so it gets called for static fields
+			// (mxCell.serialVersionUID), non-transient-but-probably-should-be fields
+			// (mxCell.children, mxCell.edges)
+			// the proper fix is to rewrite the whole thing to use Introspector, like
+			// encodeFields already intends, so for now let's just log at a lower level
+			if (log.isLoggable(Level.FINER))
+				log.finer("Failed to find accessor for " + field + " in " + obj);
+		}
 		return method;
 	}
 
@@ -779,7 +792,7 @@ public class mxObjectCodec
 			}
 			catch (Exception e)
 			{
-				// ignore
+				log.log(Level.FINEST, "Failed to get method " + methodname + " in class " + type, e);
 			}
 
 			type = type.getSuperclass();
@@ -819,7 +832,7 @@ public class mxObjectCodec
 			}
 			catch (Exception e)
 			{
-				// ignore
+				log.log(Level.SEVERE, "Failed to get value from field " + fieldname + " in " + obj, e);
 			}
 		}
 
@@ -844,9 +857,9 @@ public class mxObjectCodec
 					value = method.invoke(obj, (Object[]) null);
 				}
 			}
-			catch (Exception e2)
+			catch (Exception e)
 			{
-				// ignore
+				log.log(Level.SEVERE, "Failed to get value from field " + field + " in " + obj, e);
 			}
 		}
 
@@ -890,7 +903,7 @@ public class mxObjectCodec
 		}
 		catch (Exception e)
 		{
-			// ignore
+			log.log(Level.SEVERE, "Failed to set value \"" + value + "\" to field " + fieldname + " in " + obj, e);
 		}
 	}
 
@@ -922,13 +935,13 @@ public class mxObjectCodec
 					method.invoke(obj, new Object[] { value });
 				}
 			}
-			catch (Exception e2)
+			catch (Exception e)
 			{
-				log.log(Level.SEVERE, "setFieldValue: " + e2 + " on "
+				log.log(Level.SEVERE, "setFieldValue: " + e + " on "
 						+ obj.getClass().getSimpleName() + "."
 						+ field.getName() + " ("
 						+ field.getType().getSimpleName() + ") = " + value
-						+ " (" + value.getClass().getSimpleName() + ")", e2);
+						+ " (" + value.getClass().getSimpleName() + ")", e);
 			}
 		}
 	}

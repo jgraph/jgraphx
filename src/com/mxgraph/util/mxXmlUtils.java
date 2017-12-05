@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -52,9 +53,9 @@ public class mxXmlUtils
 				dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
 				dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
 			}
-			catch (Throwable e)
+			catch (ParserConfigurationException e)
 			{
-				// ignores abstract method errors
+				log.log(Level.SEVERE, "Failed to set feature", e);
 			}
 
 			try
@@ -114,7 +115,7 @@ public class mxXmlUtils
 		}
 		catch (Exception e)
 		{
-			// ignore
+			log.log(Level.SEVERE, "Failed to convert XML object to string", e);
 		}
 
 		return "";
