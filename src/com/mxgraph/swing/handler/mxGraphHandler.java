@@ -33,6 +33,8 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.TooManyListenersException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -62,6 +64,7 @@ public class mxGraphHandler extends mxMouseAdapter implements
 	 * 
 	 */
 	private static final long serialVersionUID = 3241109976696510225L;
+	private static final Logger log = Logger.getLogger(mxGraphHandler.class.getName());
 
 	/**
 	 * Default is Cursor.DEFAULT_CURSOR.
@@ -821,7 +824,7 @@ public class mxGraphHandler extends mxMouseAdapter implements
 			catch (Exception ex)
 			{
 				// do nothing
-				ex.printStackTrace();
+				log.log(Level.SEVERE, "Failed to handle dragEnter", ex);
 			}
 
 		}

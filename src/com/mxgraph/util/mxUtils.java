@@ -41,6 +41,8 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.Stack;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.text.html.HTMLDocument;
@@ -64,6 +66,8 @@ import com.mxgraph.view.mxCellState;
  */
 public class mxUtils
 {
+
+	private static final Logger log = Logger.getLogger(mxUtils.class.getName());
 
 	/**
 	 * True if the machine is a Mac.
@@ -1852,7 +1856,7 @@ public class mxUtils
 		}
 		catch (NoSuchAlgorithmException ex)
 		{
-			ex.printStackTrace();
+			log.log(Level.SEVERE, "Failed to compute MD5 hash", ex);
 		}
 
 		return result.toString();
@@ -2032,7 +2036,7 @@ public class mxUtils
 					}
 					catch (Exception e1)
 					{
-						e1.printStackTrace();
+						log.log(Level.SEVERE, "Failed to read the image from " + realUrl, e1);
 					}
 				}
 			}
@@ -2363,7 +2367,7 @@ public class mxUtils
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			log.log(Level.SEVERE, "Failed to load the document from " + uri, e);
 		}
 		
 		return null;

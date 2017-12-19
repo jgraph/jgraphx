@@ -695,7 +695,7 @@ public class ExtendedGeneralPath implements Shape, Cloneable
 					coords[6] = values[valsIdx + 6];
 					break;
 			}
-			// System.out.println("Seg: [" + segNum + "] type: " + ret +
+			// log.fine("Seg: [" + segNum + "] type: " + ret +
 			//                    " vals: [" + coords[0] + ", " + coords[1] +
 			//                    "]");
 			return ret;
