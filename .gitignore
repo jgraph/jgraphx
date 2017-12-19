@@ -1,0 +1,10 @@
+# maven
+/target/
+# eclipse
+/bin/
+/classes/
+/.settings/
+/.classpath
+/.project
+# it's common to redirect maven output to a build log
+/*.log
