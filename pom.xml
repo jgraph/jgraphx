@@ -54,6 +54,7 @@
 			<configuration>
 				<instructions>
 					<Bundle-Vendor>see https://github.com/jgraph/jgraphx)</Bundle-Vendor>
+          <Automatic-Module-Name>com.mxgraph.jgraphx</Automatic-Module-Name>
 				</instructions>
 			</configuration>
 		</plugin>
