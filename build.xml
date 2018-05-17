@@ -7,7 +7,7 @@
 <project name="mxgraph" default="all" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
 	<property name="product.name"    value="JGraph X"/>
-	<property name="product.version" value="3.9.3"/>
+	<property name="product.version" value="3.9.4"/>
 	<property name="product.description" value="JGraphX is a Java Swing diagramming (graph visualisation) library licensed under the BSD license"/>
 	<property name="all.jar"             value="jgraphx.jar"/>
 	<property name="sources.jar"         value="jgraphx-sources.jar"/>

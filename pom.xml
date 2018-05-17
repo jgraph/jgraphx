@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mxgraph</groupId>
   <artifactId>jgraphx</artifactId>
-  <version>3.9.3</version>
+  <version>3.9.4</version>
   <packaging>jar</packaging>
 
   <url>http://www.jgraph.com</url>
@@ -54,7 +54,7 @@
 			<configuration>
 				<instructions>
 					<Bundle-Vendor>see https://github.com/jgraph/jgraphx)</Bundle-Vendor>
-          <Automatic-Module-Name>com.mxgraph.jgraphx</Automatic-Module-Name>
+					<Automatic-Module-Name>com.mxgraph.jgraphx</Automatic-Module-Name>
 				</instructions>
 			</configuration>
 		</plugin>
