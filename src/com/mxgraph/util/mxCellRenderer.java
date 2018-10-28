@@ -176,6 +176,9 @@ public class mxCellRenderer
 
 				});
 
+		if (canvas==null) {
+		  return null;
+		}
 		return canvas.getDocument();
 	}
 
