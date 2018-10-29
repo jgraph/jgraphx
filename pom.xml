@@ -27,6 +27,7 @@
     
   <build>
 			<sourceDirectory>src</sourceDirectory>
+			<testSourceDirectory>test/java</testSourceDirectory>
 		<resources>
 			<resource>
 				<directory>src</directory>
