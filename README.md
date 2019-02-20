@@ -1,7 +1,7 @@
 JGraphX
 =======
 
-Note: JGraphX is not actively developed, nor do we actively follow the tag on Stack Overflow. However, we will accept well tested PRs.
+Note: JGraphX is not actively developed, nor do we actively follow the tag on Stack Overflow. However, we will consider well tested PRs relating to existing functionality. The issues tracker is closed on purpose. Do not submit issues to the mxGraph project that related to this project, they will be closed.
 
 JGraphX is a Java Swing diagramming (graph visualisation) library licensed under the BSD license. Although, the package 
 names use that of 'mxGraph', this library is not called mxGraph. mxGraph is the JavaScript diagramming library - https://github.com/jgraph/mxgraph.
