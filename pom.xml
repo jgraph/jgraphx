@@ -10,9 +10,9 @@
 	<url>http://www.jgraph.com</url>
 
 	<properties>
-		<maven.compiler.source>1.5</maven.compiler.source>
+		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.5</maven.compiler.target>
-		<maven.compiler.compilerVersion>1.5</maven.compiler.compilerVersion>
+		<maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
