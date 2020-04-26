@@ -1,25 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mxgraph</groupId>
-  <artifactId>jgraphx</artifactId>
-  <version>4.1.1</version>
-  <packaging>jar</packaging>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <url>http://www.jgraph.com</url>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.mxgraph</groupId>
+	<artifactId>jgraphx</artifactId>
+	<version>4.1.1</version>
+	<packaging>jar</packaging>
 
-  <properties>
-  
-   <maven.compiler.source>1.5</maven.compiler.source>
-   <maven.compiler.target>1.5</maven.compiler.target>
-   <maven.compiler.compilerVersion>1.5</maven.compiler.compilerVersion>
-   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-  </dependencies>
-    
-  <build>
-			<sourceDirectory>src</sourceDirectory>
+	<url>http://www.jgraph.com</url>
+
+	<properties>
+		<maven.compiler.source>1.5</maven.compiler.source>
+		<maven.compiler.target>1.5</maven.compiler.target>
+		<maven.compiler.compilerVersion>1.5</maven.compiler.compilerVersion>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src</directory>
@@ -28,36 +29,36 @@
 				</excludes>
 			</resource>
 		</resources>
-  	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-jar-plugin</artifactId>
-			<version>2.6</version>
-			<configuration>
-				<archive>
-					<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-				</archive>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>maven-bundle-plugin</artifactId>
-			<version>3.0.1</version>
-			<executions>
-				<execution>
-					<phase>process-classes</phase>
-					<goals>
-						<goal>manifest</goal>
-					</goals>
-				</execution>
-			</executions>
-			<configuration>
-				<instructions>
-					<Bundle-Vendor>see https://github.com/jgraph/jgraphx)</Bundle-Vendor>
-					<Automatic-Module-Name>com.mxgraph.jgraphx</Automatic-Module-Name>
-				</instructions>
-			</configuration>
-		</plugin>
-  	</plugins>
-  </build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<instructions>
+						<Bundle-Vendor>see https://github.com/jgraph/jgraphx)</Bundle-Vendor>
+						<Automatic-Module-Name>com.mxgraph.jgraphx</Automatic-Module-Name>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
