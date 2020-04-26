@@ -15,6 +15,7 @@
 
 <!-- ===================== Project Environment =========================== -->
 
+	<property name="builddir"       value="${basedir}/target"/>
 	<property name="source.home"    value="${basedir}/src"/>
 	<property name="example.home"   value="${basedir}/examples"/>
 
@@ -37,20 +38,18 @@
 <!-- ==================== Clean ==================== -->
 
 	<target name="clean" description="Deletes all generated files and directories">
-		<delete dir="${basedir}/classes"/>
-		<delete dir="${basedir}/docs"/>
-		<delete dir="${basedir}/lib"/>
+		<delete dir="${builddir}"/>
 	</target>
 
 <!-- ==================== Init ==================== -->
 
 	<target name="init" description="Initializes the build">
 		<tstamp/>
-		<mkdir dir="${basedir}/classes"/>
-		<mkdir dir="${basedir}/docs"/>
-		<mkdir dir="${basedir}/docs/api"/>
-		<mkdir dir="${basedir}/docs/manual"/>
-		<mkdir dir="${basedir}/lib"/>
+		<mkdir dir="${builddir}/classes"/>
+		<mkdir dir="${builddir}/docs"/>
+		<mkdir dir="${builddir}/docs/api"/>
+		<mkdir dir="${builddir}/docs/manual"/>
+		<mkdir dir="${builddir}"/>
 	</target>
 
 <!-- ==================== Compile ==================== -->
@@ -60,9 +59,9 @@
 			debug="${compile.debug}"
 			deprecation="${compile.deprecation}"
 			optimize="${compile.optimize}"
-			destdir="${basedir}/classes">
+			destdir="${builddir}/classes">
 			<classpath>
-				<pathelement path="${basedir}/classes"/>
+				<pathelement path="${builddir}/classes"/>
 			</classpath>
 		</javac>
 	</target>
@@ -72,8 +71,8 @@
 	<target name="doc" depends="compile" description="Generates the API specification (javadoc)">
 		<javadoc packagenames="com.mxgraph.*"
 				 sourcepath="${source.home}"
-				 classpath="${basedir}/classes"
-				 destdir="${basedir}/docs/api"
+				 classpath="${builddir}/classes"
+				 destdir="${builddir}/docs/api"
 				 use="true"
 				 author="false"
 				 version="false"
@@ -84,12 +83,15 @@
 				target="_blank">Gaudenz Alder</a>. All rights reserved.</font>]]></bottom>
 			<link href="http://download.oracle.com/javase/1.5.0/docs/api/"/>
 		</javadoc>
+		<copy todir="${builddir}/docs/manual">
+			<fileset dir="docs/manual"/>
+		</copy>
 	</target>
 
 <!-- ==================== Build ==================== -->
 
 	<target name="build" depends="doc" description="Builds all Java archives (JARs)">
-		<jar jarfile="${basedir}/lib/${all.jar}">
+		<jar jarfile="${builddir}/${all.jar}">
 			<manifest>
 				<attribute name="Vendor" value="JGraph Ltd"/>
 				<attribute name="Bundle-Version" value="${product.version}"/>
@@ -99,11 +101,11 @@
 			<fileset dir="${source.home}">
 				<exclude name="**/*.java"/>
 			</fileset>
-			<fileset dir="${basedir}/classes">
+			<fileset dir="${builddir}/classes">
 				<include name="com/mxgraph/**"/>
 			</fileset>
 		</jar>
-		<delete dir="${basedir}/classes"/>
+		<delete dir="${builddir}/classes"/>
 	</target>
 
 <!-- ==================== Maven ==================== -->
@@ -119,32 +121,32 @@
 			<scm url="scm:git:https://github.com/jgraph/jgraphx"/>
 			<license name="bsd" url="https://github.com/jgraph/jgraphx/blob/master/license.txt"/>
 		</artifact:pom>
-		<artifact:writepom pomrefid="pom" file="lib/pom.xml"/>
+		<artifact:writepom pomrefid="pom" file="pom.xml"/>
 	</target>
 
 	<target name="maven-jar" description="Creates sources and javadoc jar files">
-		<jar jarfile="${basedir}/lib/${sources.jar}">
+		<jar jarfile="${builddir}/${sources.jar}">
 			<fileset dir="${source.home}"/>
 		</jar>
-		<jar jarfile="${basedir}/lib/${javadoc.jar}">
-			<fileset dir="${basedir}/docs/api"/>
+		<jar jarfile="${builddir}/${javadoc.jar}">
+			<fileset dir="${builddir}/docs/api"/>
 		</jar>
 	</target>
 
 	<target name="maven-install" depends="create-pom, maven-jar" description="Install artifacts to maven local repository">
-		<artifact:install file="${basedir}/lib/${all.jar}">
+		<artifact:install file="${builddir}/${all.jar}">
 			<artifact:pom refid="pom"/>
-			<attach type="jar" file="${basedir}/lib/${sources.jar}" classifier="sources"/>
-			<attach type="jar" file="${basedir}/lib/${javadoc.jar}" classifier="javadoc"/>
+			<attach type="jar" file="${builddir}/${sources.jar}" classifier="sources"/>
+			<attach type="jar" file="${builddir}/${javadoc.jar}" classifier="javadoc"/>
 		</artifact:install>
 	</target>
 
 	<target name="maven-deploy" depends="create-pom, maven-jar" description="Deploy artifacts to maven repository">
-		<artifact:deploy file="${basedir}/lib/${all.jar}">
+		<artifact:deploy file="${builddir}/${all.jar}">
 			<artifact:pom refid="pom"/>
 			<remoterepository url="${maven.repository.url}" id="${maven.repository.id}"/>
-			<attach type="jar" file="${basedir}/lib/${sources.jar}" classifier="sources"/>
-			<attach type="jar" file="${basedir}/lib/${javadoc.jar}" classifier="javadoc"/>
+			<attach type="jar" file="${builddir}/${sources.jar}" classifier="sources"/>
+			<attach type="jar" file="${builddir}/${javadoc.jar}" classifier="javadoc"/>
 		</artifact:deploy>
 	</target>
 
@@ -154,7 +156,7 @@
 		<javac srcdir="${example.home}" debug="${compile.debug}" deprecation="${compile.deprecation}"
 			optimize="${compile.optimize}" destdir="${example.home}">
 			<classpath>
-				<pathelement path="${basedir}/lib/${all.jar}"/>
+				<pathelement path="${builddir}/${all.jar}"/>
 			</classpath>
 		</javac>
 	</target>
@@ -165,7 +167,7 @@
 		<java fork="true" classname="com.mxgraph.examples.swing.GraphEditor">
 			<classpath>
 				<pathelement path="${example.home}"/>
-				<pathelement path="${basedir}/lib/${all.jar}"/>
+				<pathelement path="${builddir}/${all.jar}"/>
 			</classpath>
 		</java>
 	</target>
