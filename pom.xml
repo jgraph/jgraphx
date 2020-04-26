@@ -5,7 +5,7 @@
 	<groupId>com.mxgraph</groupId>
 	<artifactId>jgraphx</artifactId>
 	<version>4.1.1</version>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 
 	<url>http://www.jgraph.com</url>
 
