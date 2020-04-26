@@ -5,7 +5,7 @@
 	<groupId>com.mxgraph</groupId>
 	<artifactId>jgraphx</artifactId>
 	<version>4.1.1</version>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 
 	<url>http://www.jgraph.com</url>
 
@@ -54,7 +54,7 @@
 				</executions>
 				<configuration>
 					<instructions>
-						<Bundle-Vendor>see https://github.com/jgraph/jgraphx)</Bundle-Vendor>
+						<Bundle-Vendor>see https://github.com/jgraph/jgraphx</Bundle-Vendor>
 						<Automatic-Module-Name>com.mxgraph.jgraphx</Automatic-Module-Name>
 					</instructions>
 				</configuration>
