@@ -6,8 +6,8 @@
 
 <project name="mxgraph" default="all" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
-	<property name="product.name"    value="JGraph X"/>
-	<property name="product.version" value="4.1.1"/>
+	<property name="product.name"        value="JGraph X"/>
+	<property name="product.version"     value="4.1.1"/>
 	<property name="product.description" value="JGraphX is a Java Swing diagramming (graph visualisation) library licensed under the BSD license"/>
 	<property name="all.jar"             value="jgraphx.jar"/>
 	<property name="sources.jar"         value="jgraphx-sources.jar"/>
@@ -23,7 +23,7 @@
 	<property name="compile.debug"       value="false"/>
 	<property name="compile.deprecation" value="false"/>
 	<property name="compile.optimize"    value="true"/>
-	
+
 <!-- ==================== Maven Options ==================== -->
 
 	<property name="maven.repository.url" value="your_maven_repository_url_here"/>
@@ -72,7 +72,7 @@
 	<target name="doc" depends="compile" description="Generates the API specification (javadoc)">
 		<javadoc packagenames="com.mxgraph.*"
 				 sourcepath="${source.home}"
-				 classpath="${basedir}/classes" 
+				 classpath="${basedir}/classes"
 				 destdir="${basedir}/docs/api"
 				 use="true"
 				 author="false"
@@ -109,7 +109,7 @@
 <!-- ==================== Maven ==================== -->
 
 	<target name="create-pom" description="Creates pom.xml for jgraphx project">
-		<artifact:pom file="pom.xml" id="pom" 
+		<artifact:pom file="pom.xml" id="pom"
 			groupId="com.jgraph"
 			artifactId="jgraphx"
 			version="${product.version}"
@@ -121,7 +121,7 @@
 		</artifact:pom>
 		<artifact:writepom pomrefid="pom" file="lib/pom.xml"/>
 	</target>
-	
+
 	<target name="maven-jar" description="Creates sources and javadoc jar files">
 		<jar jarfile="${basedir}/lib/${sources.jar}">
 			<fileset dir="${source.home}"/>
@@ -130,7 +130,7 @@
 			<fileset dir="${basedir}/docs/api"/>
 		</jar>
 	</target>
-	
+
 	<target name="maven-install" depends="create-pom, maven-jar" description="Install artifacts to maven local repository">
 		<artifact:install file="${basedir}/lib/${all.jar}">
 			<artifact:pom refid="pom"/>
@@ -138,7 +138,7 @@
 			<attach type="jar" file="${basedir}/lib/${javadoc.jar}" classifier="javadoc"/>
 		</artifact:install>
 	</target>
-	
+
 	<target name="maven-deploy" depends="create-pom, maven-jar" description="Deploy artifacts to maven repository">
 		<artifact:deploy file="${basedir}/lib/${all.jar}">
 			<artifact:pom refid="pom"/>
@@ -147,27 +147,27 @@
 			<attach type="jar" file="${basedir}/lib/${javadoc.jar}" classifier="javadoc"/>
 		</artifact:deploy>
 	</target>
-			
+
 <!-- ==================== Example ==================== -->
 
-    <target name="example" depends="build" description="Compiles the examples">
+	<target name="example" depends="build" description="Compiles the examples">
 		<javac srcdir="${example.home}" debug="${compile.debug}" deprecation="${compile.deprecation}"
 			optimize="${compile.optimize}" destdir="${example.home}">
 			<classpath>
 				<pathelement path="${basedir}/lib/${all.jar}"/>
 			</classpath>
 		</javac>
-    </target>
-	    
+	</target>
+
 <!-- ==================== Editor ==================== -->
 
-    <target name="editor" depends="example" description="Runs the graph editor example">
+	<target name="editor" depends="example" description="Runs the graph editor example">
 		<java fork="true" classname="com.mxgraph.examples.swing.GraphEditor">
 			<classpath>
 				<pathelement path="${example.home}"/>
 				<pathelement path="${basedir}/lib/${all.jar}"/>
 			</classpath>
 		</java>
-    </target>
+	</target>
 
 </project>
