@@ -26,8 +26,8 @@
 
 <!-- ==================== Maven Options ==================== -->
 
-	<property name="maven.repository.url" value="your_maven_repository_url_here"/>
-	<property name="maven.repository.id"  value="your_maven_repository_id_here"/>
+	<property name="maven.repository.url" value="your_maven_repository_url_here"/> <!-- TODO Fill in! -->
+	<property name="maven.repository.id"  value="your_maven_repository_id_here"/> <!-- TODO Fill in! -->
 
 <!-- ==================== All ==================== -->
 
