@@ -18,6 +18,7 @@ import com.mxgraph.layout.hierarchical.stage.mxCoordinateAssignment;
 import com.mxgraph.layout.hierarchical.stage.mxHierarchicalLayoutStage;
 import com.mxgraph.layout.hierarchical.stage.mxMedianHybridCrossingReduction;
 import com.mxgraph.layout.hierarchical.stage.mxMinimumCycleRemover;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxCellState;
@@ -404,11 +405,20 @@ JGraphLayout.Stoppable*/
 			for (int i = 0; i < childCount; i++)
 			{
 				Object child = model.getChildAt(cell, i);
-				result.addAll(filterDescendants(child));
+
+                // Ignore ports in the layout vertex list, they are dealt with
+                // in the traversal mechanisms
+				if (!isPort((mxCell) child)) {
+					result.addAll(filterDescendants(child));
+				}
 			}
 		}
 
 		return result;
+	}
+
+	private boolean isPort(mxCell cell) {
+		return cell.getGeometry().isRelative();
 	}
 
 	/**
@@ -451,19 +461,51 @@ JGraphLayout.Stoppable*/
 
 				int edgeCount = model.getEdgeCount(vertex);
 
+				boolean[] edgeIsSource = new boolean[edgeCount];
+				if (edgeCount > 0) {
+					for (int i = 0; i < edgeCount; i++) {
+						Object e = model.getEdgeAt(vertex, i);
+						edgeIsSource[i] = view.getVisibleTerminal(e, true) == vertex;
+					}
+				}
+
 				if (edgeCount > 0)
 				{
 					for (int i = 0; i < edgeCount; i++)
 					{
 						Object e = model.getEdgeAt(vertex, i);
-						boolean isSource = view.getVisibleTerminal(e, true) == vertex;
 
-						if (!directed || isSource)
+						if (!directed || edgeIsSource[i])
 						{
-							Object next = view.getVisibleTerminal(e, !isSource);
-							traverse(next, directed, e, allVertices,
-									currentComp, hierarchyVertices,
-									filledVertexSet);
+							Object next = view.getVisibleTerminal(e, !edgeIsSource[i]);
+
+                            // Check whether there are more edges incoming from the target vertex than outgoing
+                            // The hierarchical model treats bi-directional parallel edges as being sourced
+                            // from the more "sourced" terminal. If the directions are equal in number, the direction
+                            // is that of the natural direction from the roots of the layout.
+                            // The checks below are slightly more verbose than need be for performance reasons
+							int netCount = 1;
+
+							for (int j = 0; j < edgeCount; j++) {
+								if (j != i) {
+									boolean isSorce2 = edgeIsSource[j];
+									Object e2 = model.getEdgeAt(vertex, j);
+									Object otherTerm = view.getVisibleTerminal(e2, !isSorce2);
+									if (otherTerm == next) {
+										if (isSorce2) {
+											netCount++;
+										} else {
+											netCount--;
+										}
+									}
+								}
+							}
+
+							if (netCount >= 0){
+								traverse(next, directed, e, allVertices,
+										currentComp, hierarchyVertices,
+										filledVertexSet);
+							}
 						}
 					}
 				}
