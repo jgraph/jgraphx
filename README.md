@@ -1,7 +1,7 @@
 JGraphX
 =======
 
-Note: JGraphX is not actively developed, nor do we actively follow the tag on Stack Overflow. However, we will consider well tested PRs relating to existing functionality. The issues tracker is closed on purpose. Do not submit issues to the mxGraph project that are related to this project, they will be closed.
+This project is end of life.
 
 We don't properly support Maven or publish to Maven Central. If that's an issue, use https://github.com/vlsi/jgraphx-publish
 
@@ -32,8 +32,3 @@ There's also the API specifications at https://jgraph.github.io/mxgraph/java/doc
 There is a 'jgraphx' tag on Stackoverflow - https://stackoverflow.com/questions/tagged/jgraphx, but please ensure 
 you understand the SO FAQ and posting guidelines prior to posting. To post on SO you must 1) have a _question_ , 
 2) that question be _programming_ related and 3) use the 'jgraphx' tag.
-
-JGraphX shares the changelog and version number of mxGraph, our JavaScript implementation of the same idea. This 
-is because many people use the Java API on the server with mxGraph, so the model APIs have to be identical on each 
-release. You have to filter the changelog, https://www.jgraph.com/mxchangelog.html for "Java" in the square brackets 
-at the end of each line to see the changes that only apply to Java.
